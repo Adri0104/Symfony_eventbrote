@@ -2,6 +2,7 @@ doctrine:
     dbal:
         # configure these for your database server
         driver: 'pdo_mysql'
+        unix_socket: '/Applications/MAMP/tmp/mysql/mysql.sock'
         server_version: '5.7'
         charset: utf8mb4
         default_table_options:
