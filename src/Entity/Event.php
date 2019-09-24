@@ -32,6 +32,16 @@ class Event
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $startsAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class Event
     public function setPrice(?string $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getStartsAt(): ?\DateTimeInterface
+    {
+        return $this->startsAt;
+    }
+
+    public function setStartsAt(\DateTimeInterface $startsAt): self
+    {
+        $this->startsAt = $startsAt;
 
         return $this;
     }

@@ -6,7 +6,13 @@
     <h1> {{ events|length }} Events</h1>
     <ul>
         {% for event in events %}
-            <li>{{ event }}</li>
+            <li>
+                <strong>{{ event.name }}</strong>
+                in {{ event.location }}
+                {{ event.price|number_format }}€
+            </li>
+            <p>{{ event.description }}</p>
+            <p>{{ event.startsAt|date }}</p>
         {% endfor %}
     </ul>
 {% endblock %}

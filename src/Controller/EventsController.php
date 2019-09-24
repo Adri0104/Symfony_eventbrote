@@ -2,21 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
+use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class EventsController extends AbstractController
 {
     /**
-     * @Route("/events")
+     * @Route("/", name="home")
      */
-    public function index()
+    public function index(EventRepository $repo) : Response
     {
-        $events = [
-            'Symfony Conference',
-            'Laravel Conference',
-            'PHP Conference'
-        ];
+//        $repo = $em->getRepository(Event::class);
+        $events = $repo->findAll();
         return $this->render('events/index.html.twig', compact('events'));
     }
 }
