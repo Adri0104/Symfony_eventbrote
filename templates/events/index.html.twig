@@ -1,18 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
 {% block title %}Events{% endblock %}
 
 {% block body %}
-    <h1> {{ events|length }} Events</h1>
-    <ul>
-        {% for event in events %}
-            <li>
-                <strong>{{ event.name }}</strong>
-                in {{ event.location }}
-                {{ event.price|number_format }}€
-            </li>
-            <p>{{ event.description }}</p>
-            <p>{{ event.startsAt|date }}</p>
-        {% endfor %}
-    </ul>
+    <h1 class="text-center h4 mt-5"> {{ events|length }} Events</h1>
+        <div class="list-group list-group-flush">
+            {% for event in events %}
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ event.name }}</h5>
+                        <p>{{ format_price(event) }}</p>
+                    </div>
+                    <p class="mb-1">{{ event.description|truncate(35, true) }}</p>
+                    <small class="text-muted">On {{ event.startsAt|datetime }} in {{ event.location }}.</small>
+                </a>
+            {% endfor %}
+        </div>
 {% endblock %}
