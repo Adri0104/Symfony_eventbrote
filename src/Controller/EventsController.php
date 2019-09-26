@@ -24,12 +24,24 @@ class EventsController extends AbstractController
     /**
      * @Route("/events/{id<[0-9]+>}", name="events.show", methods={"GET"})
      */
-    public function show(EventRepository $repo, /*$id*/ Event $event)
+    public function show(/*EventRepository $repo,*/ /*$id*/ Event $event)
     {
         /*$event = $repo->find($id);
         if(!$event) {
             throw $this->createNotFoundException('Event with id #' . $id . ' not found');
         }*/
         return $this->render('events/show.html.twig', compact('event'));
+    }
+
+    /**
+     * @Route("/events/{id<[0-9]+>}/edit", name="events.edit", methods={"GET"})
+     */
+    public function edit(/*EventRepository $repo,*/ /*$id*/ Event $event)
+    {
+        /*$event = $repo->find($id);
+        if(!$event) {
+            throw $this->createNotFoundException('Event with id #' . $id . ' not found');
+        }*/
+        return $this->render('events/edit.html.twig', compact('event'));
     }
 }

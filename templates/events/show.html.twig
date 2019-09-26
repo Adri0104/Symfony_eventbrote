@@ -9,7 +9,7 @@
             <h2 class="h4">{{ format_price(event) }}</h2>
             <h3 class="h5 font-weight-light">{{ event.startsAt|datetime }} in {{ event.location }}</h3>
             <p>{{ event.description }}</p>
-            <p><a href="{{ path('events.index') }}">&lAarr; All events</a></p>
+            <p><a href="{{ path('events.edit', {'id': event.id}) }}">Edit</a></p>
         </div>
     </div>
 {% endblock %}
