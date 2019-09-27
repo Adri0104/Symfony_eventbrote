@@ -4,7 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Repository\EventRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,7 +30,7 @@ class EventsController extends AbstractController
     /**
      * @Route("/events/{id<[0-9]+>}", name="events.show", methods={"GET"})
      */
-    public function show(/*EventRepository $repo,*/ /*$id*/ Event $event)
+    public function show(/*EventRepository $repo,*/ /*$id*/ Event $event): Response
     {
         /*$event = $repo->find($id);
         if(!$event) {
@@ -34,14 +40,25 @@ class EventsController extends AbstractController
     }
 
     /**
-     * @Route("/events/{id<[0-9]+>}/edit", name="events.edit", methods={"GET"})
+     * @Route("/events/{id<[0-9]+>}/edit", name="events.edit", methods={"GET", "PATCH"})
      */
-    public function edit(/*EventRepository $repo,*/ /*$id*/ Event $event)
+    public function edit(Event $event, Request $request, EntityManagerInterface $em): Response
     {
-        /*$event = $repo->find($id);
-        if(!$event) {
-            throw $this->createNotFoundException('Event with id #' . $id . ' not found');
-        }*/
-        return $this->render('events/edit.html.twig', compact('event'));
+        $formEdit = $this->createFormBuilder($event, ['method' => 'PATCH'])
+            ->add('name')
+            ->add('location')
+            ->add('price', null, ['html5' => true, 'scale' => 2])
+            ->add('description', null, ['attr' => ['rows' => 5, 'class' => 'tutu titi']])
+            ->add('startsAt')
+            ->getForm();
+        $formEdit->handleRequest($request);
+        if($formEdit->isSubmitted() && $formEdit->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute('events.show', ['id' => $event->getId()]);
+        }
+        return $this->render('events/edit.html.twig', [
+            'event' => $event,
+            'formEdit' => $formEdit->createView()
+        ]);
     }
 }
