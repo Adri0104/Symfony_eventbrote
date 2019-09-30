@@ -28,6 +28,30 @@ class EventsController extends AbstractController
     }
 
     /**
+     * @Route("/events/create", name="events.create", methods={"GET", "POST"})
+     */
+    public function create(Request $request, EntityManagerInterface $em)
+    {
+        $event = new Event();
+        $formCreate = $this->createFormBuilder($event)
+            ->add('name')
+            ->add('location')
+            ->add('price', null, ['html5' => true, 'scale' => 2])
+            ->add('description', null, ['attr' => ['rows' => 5, 'class' => 'tutu titi']])
+            ->add('startsAt')
+            ->getForm();
+        $formCreate->handleRequest($request);
+        if($formCreate->isSubmitted() && $formCreate->isValid()) {
+            $em->persist($event);
+            $em->flush();
+            return $this->redirectToRoute('events.show', ['id' => $event->getId()]);
+        }
+        return $this->render('events/create.html.twig', [
+            'formCreate' => $formCreate->createView()
+        ]);
+    }
+
+    /**
      * @Route("/events/{id<[0-9]+>}", name="events.show", methods={"GET"})
      */
     public function show(/*EventRepository $repo,*/ /*$id*/ Event $event): Response
