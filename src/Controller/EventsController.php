@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Form\EventFormType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,21 +34,15 @@ class EventsController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em)
     {
         $event = new Event();
-        $formCreate = $this->createFormBuilder($event)
-            ->add('name')
-            ->add('location')
-            ->add('price', null, ['html5' => true, 'scale' => 2])
-            ->add('description', null, ['attr' => ['rows' => 5, 'class' => 'tutu titi']])
-            ->add('startsAt')
-            ->getForm();
-        $formCreate->handleRequest($request);
-        if($formCreate->isSubmitted() && $formCreate->isValid()) {
+        $form = $this->createForm(EventFormType::class, $event);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
             $em->persist($event);
             $em->flush();
             return $this->redirectToRoute('events.show', ['id' => $event->getId()]);
         }
         return $this->render('events/create.html.twig', [
-            'formCreate' => $formCreate->createView()
+            'form' => $form->createView()
         ]);
     }
 
@@ -68,21 +63,15 @@ class EventsController extends AbstractController
      */
     public function edit(Event $event, Request $request, EntityManagerInterface $em): Response
     {
-        $formEdit = $this->createFormBuilder($event, ['method' => 'PATCH'])
-            ->add('name')
-            ->add('location')
-            ->add('price', null, ['html5' => true, 'scale' => 2])
-            ->add('description', null, ['attr' => ['rows' => 5, 'class' => 'tutu titi']])
-            ->add('startsAt')
-            ->getForm();
-        $formEdit->handleRequest($request);
-        if($formEdit->isSubmitted() && $formEdit->isValid()) {
+        $form = $this->createForm(EventFormType::class, $event, ['method' => 'PATCH']);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             return $this->redirectToRoute('events.show', ['id' => $event->getId()]);
         }
         return $this->render('events/edit.html.twig', [
             'event' => $event,
-            'formEdit' => $formEdit->createView()
+            'form' => $form->createView()
         ]);
     }
 }
