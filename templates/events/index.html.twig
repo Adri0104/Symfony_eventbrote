@@ -3,17 +3,20 @@
 {% block title %}Events{% endblock %}
 
 {% block body %}
-    <h1 class="text-center h4 mt-5"> {{ events|length }} Events</h1>
+    <h1 class="text-center h4 mt-5"> {{ pluralize(events|length, 'Event') }} Events</h1>
     <p><a href="{{ path('events.create') }}">Add new event</a></p>
     <div class="list-group list-group-flush">
         {% for event in events %}
             <a href="{{ path('events.show', {'id': event.id}) }}" class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ event.name }}</h5>
-                    <p>{{ format_price(event) }}</p>
+                    <img src="{{ asset('/images/' ~ event.imageFileName) }}" alt="{{ event.name }}" class="rounded-sm shadow-sm">
+                    <div>
+                        <h5 class="mb-1">{{ event.name }}</h5>
+                        <p class="mb-1">{{ event.description|truncate(35, true) }}</p>
+                        <small class="text-muted">On {{ event.startsAt|datetime }} in {{ event.location }}.</small>
+                    </div>
+                    <p>{{ pluralize(event.capacity, 'spot') }} &bull; {{ format_price(event) }}</p>
                 </div>
-                <p class="mb-1">{{ event.description|truncate(35, true) }}</p>
-                <small class="text-muted">On {{ event.startsAt|datetime }} in {{ event.location }}.</small>
             </a>
         {% endfor %}
     </div>

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -18,29 +19,47 @@ class Event
     private $id;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $location;
 
     /**
+     * @Assert\PositiveOrZero()
      * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
      */
     private $price;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\Length(min = 25, minMessage="The description must be at least {{ limit }} characters long")
      * @ORM\Column(type="text")
      */
     private $description;
 
     /**
+     * @Assert\GreaterThanOrEqual("+1 hour")
      * @ORM\Column(type="datetime")
      */
     private $startsAt;
+
+    /**
+     * @Assert\Regex("/^\w+\.(jpg|jpeg|png)$/i", message="Img must be a jpg or png")
+     * @ORM\Column(type="string", length=255, options={"default": "placeholder.jpg"})
+     */
+    private $imageFileName = 'placeholder.jpg';
+
+    /**
+     * @Assert\Positive()
+     * @ORM\Column(type="integer", options={"default": 1})
+     */
+    private $capacity = 1;
 
     public function getId(): ?int
     {
@@ -113,5 +132,29 @@ class Event
     public function isFree(): bool
     {
         return $this->getPrice() == 0 || is_null($this->getPrice());
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(int $capacity): self
+    {
+        $this->capacity = $capacity;
+
+        return $this;
+    }
+
+    public function getImageFileName(): ?string
+    {
+        return $this->imageFileName;
+    }
+
+    public function setImageFileName(string $imageFileName): self
+    {
+        $this->imageFileName = $imageFileName;
+
+        return $this;
     }
 }

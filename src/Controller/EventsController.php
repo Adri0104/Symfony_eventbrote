@@ -24,7 +24,8 @@ class EventsController extends AbstractController
     public function index(EventRepository $repo) : Response
     {
 //        $repo = $em->getRepository(Event::class);
-        $events = $repo->findAll();
+//        $events = $repo->findBy([], ['startsAt' => 'ASC']);
+        $events = $repo->findUpComing();
         return $this->render('events/index.html.twig', compact('events'));
     }
 
@@ -73,5 +74,17 @@ class EventsController extends AbstractController
             'event' => $event,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/events/{id<[0-9]+>}/delete", name="events.delete", methods={"DELETE"})
+     */
+    public function delete(Event $event, Request $request, EntityManagerInterface $em)
+    {
+        if ($this->isCsrfTokenValid('deleteEvent', $request->get('_token'))) {
+            $em->remove($event);
+            $em->flush();
+        }
+        return $this->redirectToRoute('events.index');
     }
 }

@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6bf229a9-a90b-4681-a4ed-c2ffbf6eafa8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/events/_form.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/layouts/partials/_nav.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EventsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EventsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/events/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/events/create.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/events/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/events/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layouts/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layouts/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Event.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/EventFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EventFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/EventRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/EventRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/AppExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/AppExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/events/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/events/_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/events/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/events/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/events/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/events/show.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -151,6 +153,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/templates/events" />
       <recent name="$PROJECT_DIR$/templates/layouts" />
     </key>
@@ -185,7 +188,9 @@
       <workItem from="1569482724782" duration="6955000" />
       <workItem from="1569520218651" duration="672000" />
       <workItem from="1569563709734" duration="7883000" />
-      <workItem from="1569834681489" duration="6234000" />
+      <workItem from="1569834681489" duration="6668000" />
+      <workItem from="1569874225260" duration="5000" />
+      <workItem from="1569934560642" duration="10232000" />
     </task>
     <servers />
   </component>

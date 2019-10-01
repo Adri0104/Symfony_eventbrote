@@ -17,6 +17,8 @@ class EventFormType extends AbstractType
             ->add('price', null, ['html5' => true, 'scale' => 2])
             ->add('description', null, ['attr' => ['rows' => 5, 'class' => 'tutu titi']])
             ->add('startsAt')
+            ->add('imageFileName', null, ['empty_data' => 'placeholder.jpg'])
+            ->add('capacity', null, ['empty_data' => '1'])
         ;
     }
 
