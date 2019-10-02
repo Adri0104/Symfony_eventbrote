@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Registrations for ' ~ event.name%}
+
+{% block body %}
+    <h2 class="mb-3 font-weight-light">Registrations for {{ event.name }}</h2>
+    {% for registration in registrations %}
+        <li>
+            <a href="mailto:{{ registration.email }}">({{ registration.name }})</a> &bull; {{ registration.event.name }} &bull; {{ registration.howHeard }}
+        </li>
+    {% else %}
+        <p>No registrations <a href="#">Here</a></p>
+    {% endfor %}
+{% endblock %}

@@ -10,7 +10,8 @@
     <body>
         {{ include('/layouts/partials/_nav.html.twig') }}
         <main role="main">
-            <div class="container">
+            <div class="container mt-3">
+                {{ include('layouts/partials/_flash_message.html.twig') }}
                 {% block body %}{% endblock %}
             </div>
         </main>

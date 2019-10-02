@@ -40,6 +40,7 @@ class EventsController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $em->persist($event);
             $em->flush();
+            $this->addFlash('success', 'Event created');
             return $this->redirectToRoute('events.show', ['id' => $event->getId()]);
         }
         return $this->render('events/create.html.twig', [
@@ -68,6 +69,7 @@ class EventsController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $em->flush();
+            $this->addFlash('success', 'Event updated');
             return $this->redirectToRoute('events.show', ['id' => $event->getId()]);
         }
         return $this->render('events/edit.html.twig', [
@@ -84,6 +86,7 @@ class EventsController extends AbstractController
         if ($this->isCsrfTokenValid('deleteEvent', $request->get('_token'))) {
             $em->remove($event);
             $em->flush();
+            $this->addFlash('danger', 'Event deleted');
         }
         return $this->redirectToRoute('events.index');
     }

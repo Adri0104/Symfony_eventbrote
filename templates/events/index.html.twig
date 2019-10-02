@@ -3,7 +3,7 @@
 {% block title %}Events{% endblock %}
 
 {% block body %}
-    <h1 class="text-center h4 mt-5"> {{ pluralize(events|length, 'Event') }} Events</h1>
+    <h1 class="text-center h4 mt-5"> {{ pluralize(events|length, 'Event') }}</h1>
     <p><a href="{{ path('events.create') }}">Add new event</a></p>
     <div class="list-group list-group-flush">
         {% for event in events %}
