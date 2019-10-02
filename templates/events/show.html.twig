@@ -7,11 +7,12 @@
         <div class="col-md-6 mx-auto">
             <h1 class="mt-5 font-weight-light">{{ event.name }}</h1>
             <img src="{{ asset('/images/' ~ event.imageFileName) }}" alt="{{ event.name }}" class="rounded-sm shadow-sm">
-            <h2 class="h4 mt-2">{{ pluralize(event.capacity, 'spot') }} &bull; {{ format_price(event) }}</h2>
+            <h2 class="h4 mt-2">{{ pluralize(event.spotsLeft, 'spot') }} &bull; {{ format_price(event) }}</h2>
             <h3 class="h5 font-weight-light">{{ event.startsAt|datetime }} in {{ event.location }}</h3>
             <p>{{ event.description }}</p>
+            {{ register_link_or_sold_out(event) }}
             <p>
-                <a href="{{ path('registration.index', {'event': event.id}) }}">View</a>
+                <a href="{{ path('registrations.index', {'event': event.id}) }}">View</a>
             </p>
             <p>
                 <a href="{{ path('events.edit', {'id': event.id}) }}">Edit</a> |

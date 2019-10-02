@@ -146,6 +146,22 @@ class Event
         return $this->getPrice() == 0 || is_null($this->getPrice());
     }
 
+    /**
+     * The number of spots available for this event
+     */
+    public function spotsLeft(): int
+    {
+        return $this->capacity - ($this->registrations->count());
+    }
+
+    /**
+     * Check if an event is sold out or not
+     */
+    public function isSoldOut(): bool
+    {
+        return $this->spotsLeft() == 0;
+    }
+
     public function getCapacity(): ?int
     {
         return $this->capacity;

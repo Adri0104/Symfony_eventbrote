@@ -3,12 +3,20 @@
 namespace App\Twig;
 
 use App\Entity\Event;
+use Symfony\Component\Routing\RouterInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
+    private $router;
+
+    public function __construct(RouterInterface $router)
+    {
+        $this->router = $router;
+    }
+
     public function getFilters(): array
     {
         return [
@@ -24,6 +32,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFunction('format_price', [$this, 'formatPrice'], ['is_safe' => ['html']]),
             new TwigFunction('pluralize', [$this, 'pluralize']),
+            new TwigFunction('register_link_or_sold_out', [$this, 'registerLinkOrSoldOut'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -47,5 +56,14 @@ class AppExtension extends AbstractExtension
         $plural = $plural ?? $singular . 's';
         $string = $count == 1 ? $singular : $plural;
         return "$count $string";
+    }
+
+    public function registerLinkOrSoldOut(Event $event): string
+    {
+        if ($event->isSoldOut()) {
+            return '<span class="badge badge-warning text-uppercase">Sold out</span>';
+        } else {
+            return sprintf('<p><a href="%s">Register</a></p>', $this->router->generate('registrations.create', ['event' => $event->getId()]));
+        }
     }
 }
